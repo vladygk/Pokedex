@@ -6,36 +6,17 @@ import React from "react";
 import {colors,typesImg} from "../imports";
 import Particle from "./Particle"
 import Header from "./Header";
+import collect from 'collect.js';
 export default function Main() {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
   const [data, setData] = useState();
   const [fetchedData, setFetchedData] = useState();
-const colors = {
-  fire:"#ed1515",
-  water:"#360eea",
-  poison:"#9B69D6",
-  grass:"#27CB4F",
-  dragon:"#60CAD9",
-  steel:"#44BD94",
-  ghost:"#313469",
-  psychic:"#F71D8F",
-  ice:"#81D3F4",
-  dark:"#5A5979",
-  fairy:"#E71468",
-  electric:"#E3E32B",
-  rock:"#8B3E21",
-  ground:"#A96F2D",
-  bug:"#3B9950",
-  normal:"#CA98A7",
-  flying:"#93B2C7",
-  fighting:"#EF6138"
 
-}
   useEffect(() => {
     const getData = async () => {
       const result = await fetch(
-        "https://pokeapi.co/api/v2/pokemon/?limit=900"
+        "https://pokeapi.co/api/v2/pokemon/?limit=905"
       );
       const resData = await result.json();
       setData(resData.results);
@@ -50,14 +31,14 @@ const colors = {
         const rawData = data.find(
           (x) =>
             x.name.toUpperCase().split("-")[0] === value.toUpperCase() ||
-            x.name.toUpperCase() === value.toUpperCase()
+            x.name.toUpperCase() === value.toUpperCase().trim()
         );
 
         if (rawData !== undefined) {
           setPokemon(rawData);
         }
       }
-      setQuery(value);
+      setQuery(value.toUpperCase().trim());
     }
   }
 
@@ -71,10 +52,10 @@ const colors = {
           name: resData.name,
           type:resData.types[0].type.name,
           id: resData.id,
-          moves: resData.moves
+          moves: collect(resData.moves
             .map((x) => x.move)
-            .map((x) => x.name)
-            .slice(0, 10),
+            .map((x) => x.name)).skip(12)
+            .take(10),
           sprites: [
             resData.sprites["front_default"],
             resData.sprites["front_shiny"],
@@ -84,7 +65,7 @@ const colors = {
 
         localStorage.setItem("pokemon", JSON.stringify(fData));
         setFetchedData(fData);
-        console.log(fData);
+        
       }
     }
   }
