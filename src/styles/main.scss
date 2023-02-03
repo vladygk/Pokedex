@@ -113,7 +113,7 @@ body {
   align-items:center;
   font-size: 20px;
   border-radius: 25px;
-  width: 20vw;
+  width: 26vw;
   
 }
 .moves-container>ul{
@@ -149,4 +149,21 @@ body {
   position: fixed;
   width: 100%;
   z-index: -1;
+}
+
+::placeholder {
+  color: black;
+  opacity: 1;
+}
+
+.details-btn:hover {
+  background-color: grey;
+
+  scale: 1.1;
+}
+
+.btn:hover {
+  background-color: grey;
+
+  scale: 1.1;
 }

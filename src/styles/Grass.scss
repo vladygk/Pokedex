@@ -1,9 +1,9 @@
-$fire: rgba(255, 57, 57, 1);
-$secFire: orange;
+$fire: #42d656;
+$secFire: #009b14;
 $thirdFire: black;
-$forthFire: #e2dd3b;
+$forthFire: #aa6000;
 
-.banner {
+.banner-grass {
   background: rgb(253, 253, 255);
   color: white;
   background: linear-gradient(
@@ -16,75 +16,56 @@ $forthFire: #e2dd3b;
   );
 }
 
-.search-bar {
+.search-bar-grass {
   background-color: $fire;
 }
-.search-input {
+.search-input-grass {
   border: 5px solid $thirdFire;
 
   color: black;
   background-color: $secFire;
 }
 
-.btn {
+.btn-grass {
   background-color: $secFire;
   border: 5px solid black;
 }
 
-.main-img-container {
+.main-img-container-grass {
   background-color: $fire;
 }
-.main-img {
+.main-img-grass {
   border: 5px solid $thirdFire;
   background-color: $secFire;
 }
 
-.description {
+.description-grass {
   color: white;
   background-color: $fire;
-  height:50vh;
+ 
 }
-.name-type{
+.name-type-grass{
   color:$fire;
 }
 
-.details-btn {
+.details-btn-grass {
   box-shadow: 1px 1px 1px $thirdFire;
   color: $thirdFire;
   background-color: $secFire;
   border: 5px solid black;
 }
 
-.details-btn:hover {
-  background-color: $forthFire;
 
-  scale: 1.1;
-}
 
-.btn:hover {
-  background-color: $forthFire;
-
-  scale: 1.1;
-}
-
-.moves-container {
+.moves-container-grass {
   color: white;
   background-color: $secFire;
-  border: 5px solid red;
+  border: 5px solid $fire;
 }
 
-.evolutions-container {
-  background-color: black;
-  color: white;
 
-  border: 5px solid red;
-}
-.details-img {
-  border: 5px solid red;
+.details-img-grass {
+  border: 5px solid $fire;
   background-color: black;
 }
 
-::placeholder {
-  color: $fire;
-  opacity: 1;
-}

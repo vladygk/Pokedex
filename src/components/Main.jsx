@@ -3,14 +3,35 @@ import greatball from "../../img/Great_Ball_Artwork.png";
 import { Link } from "react-router-dom";
 import { useEffect, useLayoutEffect, useState } from "react";
 import React from "react";
-import typesImgs from "./imports";
+import {colors,typesImg} from "../imports";
 import Particle from "./Particle"
+import Header from "./Header";
 export default function Main() {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
   const [data, setData] = useState();
   const [fetchedData, setFetchedData] = useState();
-const colors = {fire:"#ed1515",water:"#360eea"}
+const colors = {
+  fire:"#ed1515",
+  water:"#360eea",
+  poison:"#9B69D6",
+  grass:"#27CB4F",
+  dragon:"#60CAD9",
+  steel:"#44BD94",
+  ghost:"#313469",
+  psychic:"#F71D8F",
+  ice:"#81D3F4",
+  dark:"#5A5979",
+  fairy:"#E71468",
+  electric:"#E3E32B",
+  rock:"#8B3E21",
+  ground:"#A96F2D",
+  bug:"#3B9950",
+  normal:"#CA98A7",
+  flying:"#93B2C7",
+  fighting:"#EF6138"
+
+}
   useEffect(() => {
     const getData = async () => {
       const result = await fetch(
@@ -76,23 +97,24 @@ const colors = {fire:"#ed1515",water:"#360eea"}
 
   return (
     <>
-      <div className="search-bar">
+    <Header/>
+      <div className={`search-bar search-bar-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
         <input
           onKeyDown={handleEnterClick}
           onChange={handleChange}
-          className="search-input"
-          placeholder="Pika..."
+          className= {`search-input search-input-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}
+          placeholder="Pika?"
           type="text"
           value={query}
         />
-        <button onClick={findPokemon} className="btn">
+        <button onClick={findPokemon} className={`btn btn-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
           Search
         </button>
       </div>
 
       <div className="main-container">
-        <div className="name-type">
-          <h2 className="title">
+        <div className={`name-type name-type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+          <h2 className={`title title-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
             {localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).name.toUpperCase()
               : ""}
@@ -102,12 +124,12 @@ const colors = {fire:"#ed1515",water:"#360eea"}
               ? "#" + JSON.parse(localStorage.getItem("pokemon")).id
               : ""}
           </h2>
-          <img className="type" src={localStorage.getItem("pokemon")
-              ? typesImgs[JSON.parse(localStorage.getItem("pokemon")).type]:greatball} />
+          <img className={`type type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`} src={localStorage.getItem("pokemon")
+              ? typesImg[JSON.parse(localStorage.getItem("pokemon")).type]:greatball} />
         </div>
-        <div className="main-img-container">
+        <div className={`main-img-container main-img-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
           <img
-            className="main-img"
+            className={`main-img main-img-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}
             src={
               localStorage.getItem("pokemon")
                 ? JSON.parse(localStorage.getItem("pokemon"))["sprites"][0]
@@ -117,8 +139,8 @@ const colors = {fire:"#ed1515",water:"#360eea"}
           />
         </div>
 
-        <div className="btn-container">
-          <Link to="/details" className="details-btn">
+        <div className={`btn-container btn-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+          <Link to="/details" className={`details-btn details-btn-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
             Details
           </Link>
         </div>

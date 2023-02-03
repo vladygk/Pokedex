@@ -4,9 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import Particle from "./Particle";
+import Header from "./Header";
+import {colors,typesImg} from "../imports";
+
 export default function Details() {
-  // const location = useLocation();
-  // const pokedata = location.state;
+
 
   const [localData, setLocalData] = useState(
     JSON.parse(localStorage.getItem("pokemon"))
@@ -34,14 +36,16 @@ export default function Details() {
 
   return (
     <>
-      <div className="search-bar"></div>
-      <div className="details-container">
-        <div className="name-type">
+    <Header/>
+      <div className={`search-bar search-bar-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}></div>
+      <div className={`details-container details-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+        <div className={`name-type name-type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
           <h2>{localData ? localData.name.toUpperCase() : ""}</h2>
-          <img className="type" src={greatball} />
+          <img className={`type type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`} src={localStorage.getItem("pokemon")
+              ? typesImg[JSON.parse(localStorage.getItem("pokemon")).type]:greatball} />
         </div>
-        <div className="moves-evolutions">
-          <div className="moves-container">
+        <div className={`moves-evolutions moves-evolutions-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+          <div className={`moves-container moves-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
             <h2>Moves</h2>
             <ul>
               {localData
@@ -50,11 +54,11 @@ export default function Details() {
             </ul>
           </div>
           <img
-            className="details-img"
+            className={`details-img details-img-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}
             src={localData ? localData.sprites[1] : pokeball}
             alt=""
           />
-          <div className="moves-container">
+          <div className={`moves-container moves-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
           <h2>Stats</h2>
             <ul>
               {localData
@@ -66,7 +70,7 @@ export default function Details() {
           </div>
         </div>
         {description && (
-          <div className="description">
+          <div className={`description description-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
           <p >
             {
               description[Math.floor(Math.random() * description.length)][
@@ -76,13 +80,14 @@ export default function Details() {
           </p>
           </div>
         )}
-        <div className="btn-container">
-          <Link to="/" className="details-btn">
+        <div className={`btn-container btn-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+          <Link to="/" className={`details-btn details-btn-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
             Return
           </Link>
         </div>
       </div>
-      <Particle/>
+      <Particle color={localStorage.getItem("pokemon")
+                ? colors[JSON.parse(localStorage.getItem("pokemon")).type]:""}/>
     </>
   );
 }

@@ -1,0 +1,71 @@
+$fire: #3551f2;
+$secFire: #11ebff;
+$thirdFire: white;
+$forthFire: #e5ed00;
+
+.banner-water {
+  background: rgb(253, 253, 255);
+  color: white;
+  background: linear-gradient(
+    90deg,
+    rgba(253, 253, 255, 1) 0%,
+    $fire 40%,
+    rgba(0, 0, 0, 1) 56%,
+    $secFire 81%,
+    $fire 95%
+  );
+}
+
+.search-bar-water {
+  background-color: $fire;
+}
+.search-input-water {
+  border: 5px solid $thirdFire;
+
+  color: black;
+  background-color: $secFire;
+}
+
+.btn-water {
+  background-color: $secFire;
+  border: 5px solid black;
+}
+
+.main-img-container-water {
+  background-color: $fire;
+}
+.main-img-water {
+  border: 5px solid $thirdFire;
+  background-color: $secFire;
+}
+
+.description-water {
+  color: white;
+  background-color: $fire;
+  
+}
+.name-type-water{
+  color:$fire;
+}
+
+.details-btn-water {
+  box-shadow: 1px 1px 1px $thirdFire;
+  color: black;
+  background-color: $secFire;
+  border: 5px solid black;
+}
+
+
+
+.moves-container-water {
+  color: $fire;
+  background-color: $secFire;
+  border: 5px solid $fire;
+}
+
+
+.details-img-water {
+  border: 5px solid $fire;
+  background-color: black;
+}
+

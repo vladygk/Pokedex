@@ -4,10 +4,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "react-query";
-import Details from "./pages/Details";
+import Details from "./components/Details";
 
-import SharedLayout from "./pages/SharedLayout";
-import Main from "./pages/Main.jsx";
+import Main from "./components/Main.jsx";
 const queryClient = new QueryClient();
 
 function App() {
@@ -16,10 +15,10 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<SharedLayout/>}>
-            <Route index element={<Main />} />
+            
+            <Route path="/" element={<Main />} />
             <Route path="details" element={<Details />} />
-            </Route>
+            
           </Routes>
         </BrowserRouter>
       </QueryClientProvider>

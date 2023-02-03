@@ -1,0 +1,75 @@
+$fire: #e8e114;
+$secFire: #ef821c;
+$thirdFire: black;
+$forthFire: #e2d668;
+
+.banner-electric {
+  background: rgb(253, 253, 255);
+  color: white;
+  background: linear-gradient(
+    90deg,
+    rgba(253, 253, 255, 1) 0%,
+    $fire 40%,
+    rgba(0, 0, 0, 1) 56%,
+    $secFire 81%,
+    $fire 95%
+  );
+}
+
+.search-bar-electric {
+  background-color: $fire;
+}
+.search-input-electric {
+  border: 5px solid $thirdFire;
+
+  color: black;
+  background-color: $secFire;
+}
+
+.btn-electric {
+  background-color: $secFire;
+  border: 5px solid black;
+}
+
+.main-img-container-electric {
+  background-color: $fire;
+}
+.main-img-electric {
+  border: 5px solid $thirdFire;
+  background-color: $secFire;
+}
+
+.description-electric {
+  color: black;
+  background-color: $fire;
+  
+}
+.name-type-electric{
+  color:$fire;
+}
+
+.details-btn-electric {
+  box-shadow: 1px 1px 1px $thirdFire;
+  color: $thirdFire;
+  background-color: $secFire;
+  border: 5px solid black;
+}
+
+
+
+.moves-container-electric {
+  color: white;
+  background-color: $secFire;
+  border: 5px solid $fire;
+}
+
+
+.details-img-electric {
+  border: 5px solid $fire;
+  background-color: black;
+}
+
+
+
+
+
