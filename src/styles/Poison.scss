@@ -1,9 +1,13 @@
-$fire: rgba(255, 57, 57, 1);
-$secFire: #f79a80;
-$thirdFire: black;
-$forthFire: #e2dd3b;
 
-.banner-fire {
+
+
+$fire: #8127e8;
+$secFire: #55189b;
+$thirdFire: black;
+$forthFire: #44127c;
+
+
+.banner-poison {
   background: rgb(253, 253, 255);
   color: white;
   background: linear-gradient(
@@ -16,39 +20,39 @@ $forthFire: #e2dd3b;
   );
 }
 
-.search-bar-fire {
+.search-bar-poison {
   background-color: $fire;
 }
-.search-input-fire {
+.search-input-poison {
   border: 5px solid $thirdFire;
 
   color: black;
   background-color: $secFire;
 }
 
-.btn-fire {
+.btn-poison {
   background-color: $secFire;
   border: 5px solid black;
 }
 
-.main-img-container-fire {
+.main-img-container-poison {
   background-color: $fire;
 }
-.main-img-fire {
+.main-img-poison {
   border: 5px solid $thirdFire;
   background-color: $secFire;
 }
 
-.description-fire {
+.description-poison {
   color: white;
   background-color: $fire;
-  
+ 
 }
-.name-type-fire{
+.name-type-poison{
   color:$fire;
 }
 
-.details-btn-fire {
+.details-btn-poison {
   box-shadow: 1px 1px 1px $thirdFire;
   color: $thirdFire;
   background-color: $secFire;
@@ -57,16 +61,15 @@ $forthFire: #e2dd3b;
 
 
 
-.moves-container-fire {
+.moves-container-poison {
   color: white;
   background-color: $secFire;
   border: 5px solid $fire;
 }
 
 
-.details-img-fire {
+.details-img-poison {
   border: 5px solid $fire;
   background-color: black;
 }
-
 

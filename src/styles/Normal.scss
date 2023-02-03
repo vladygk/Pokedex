@@ -1,9 +1,9 @@
-$fire: rgba(255, 57, 57, 1);
-$secFire: #f79a80;
+$fire: #b28593;
+$secFire: #7f5d67;
 $thirdFire: black;
-$forthFire: #e2dd3b;
+$forthFire: #6d525a;
 
-.banner-fire {
+.banner-normal {
   background: rgb(253, 253, 255);
   color: white;
   background: linear-gradient(
@@ -16,39 +16,39 @@ $forthFire: #e2dd3b;
   );
 }
 
-.search-bar-fire {
+.search-bar-normal {
   background-color: $fire;
 }
-.search-input-fire {
+.search-input-normal {
   border: 5px solid $thirdFire;
 
   color: black;
   background-color: $secFire;
 }
 
-.btn-fire {
+.btn-normal {
   background-color: $secFire;
   border: 5px solid black;
 }
 
-.main-img-container-fire {
+.main-img-container-normal {
   background-color: $fire;
 }
-.main-img-fire {
+.main-img-normal {
   border: 5px solid $thirdFire;
   background-color: $secFire;
 }
 
-.description-fire {
+.description-normal {
   color: white;
   background-color: $fire;
-  
+ 
 }
-.name-type-fire{
+.name-type-normal{
   color:$fire;
 }
 
-.details-btn-fire {
+.details-btn-normal {
   box-shadow: 1px 1px 1px $thirdFire;
   color: $thirdFire;
   background-color: $secFire;
@@ -57,16 +57,15 @@ $forthFire: #e2dd3b;
 
 
 
-.moves-container-fire {
+.moves-container-normal {
   color: white;
   background-color: $secFire;
   border: 5px solid $fire;
 }
 
 
-.details-img-fire {
+.details-img-normal {
   border: 5px solid $fire;
   background-color: black;
 }
-
 

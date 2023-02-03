@@ -36,7 +36,7 @@ export default function Details() {
 
   return (
     <>
-    <Header/>
+      <Header/>
       <div className={`search-bar search-bar-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}></div>
       <div className={`details-container details-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
         <div className={`name-type name-type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
