@@ -3,10 +3,11 @@ import greatball from "../../img/Great_Ball_Artwork.png";
 import { Link } from "react-router-dom";
 import { useEffect, useLayoutEffect, useState } from "react";
 import React from "react";
-import {colors,typesImg} from "../imports";
-import Particle from "./Particle"
+import { colors, typesImg } from "../imports";
+import Particle from "./Particle";
 import Header from "./Header";
-import collect from 'collect.js';
+import collect from "collect.js";
+
 export default function Main() {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
@@ -25,47 +26,39 @@ export default function Main() {
   }, []);
 
   function handleChange(event) {
-    if (data) {
-      const { value } = event.target;
-      if (value !== "") {
-        const rawData = data.find(
-          (x) =>
-            x.name.toUpperCase().split("-")[0] === value.toUpperCase() ||
-            x.name.toUpperCase() === value.toUpperCase().trim()
-        );
+    const { value } = event.target;
 
-        if (rawData !== undefined) {
-          setPokemon(rawData);
-        }
-      }
-      setQuery(value.toUpperCase().trim());
-    }
+    setQuery(value.toUpperCase().trim());
   }
 
   async function findPokemon() {
-    if (pokemon) {
-      const result = await fetch(pokemon.url);
-      const resData = await result.json();
+    console.log(query);
+    if (query !== "") {
+      const rawData = data.find( x =>((x.name.toUpperCase().includes(query.toUpperCase()) && x.name.toUpperCase().startsWith(query.toUpperCase())) || x.name.toUpperCase() === query.toUpperCase().trim()
+      ))
 
-      if (resData !== undefined) {
-        const fData = {
-          name: resData.name,
-          type:resData.types[0].type.name,
-          id: resData.id,
-          moves: collect(resData.moves
-            .map((x) => x.move)
-            .map((x) => x.name)).skip(12)
-            .take(10),
-          sprites: [
-            resData.sprites["front_default"],
-            resData.sprites["front_shiny"],
-          ],
-          stats: resData.stats.map((x) => [x.stat.name, x["base_stat"]]),
-        };
+      if (rawData) {
+        const result = await fetch(rawData.url);
+        const resData = await result.json();
 
-        localStorage.setItem("pokemon", JSON.stringify(fData));
-        setFetchedData(fData);
-        
+        if (resData !== undefined) {
+          const fData = {
+            name: resData.name,
+            type: resData.types[0].type.name,
+            id: resData.id,
+            moves: collect(resData.moves.map((x) => x.move).map((x) => x.name))
+              .skip(12)
+              .take(10),
+            sprites: [
+              resData.sprites["front_default"],
+              resData.sprites["front_shiny"],
+            ],
+            stats: resData.stats.map((x) => [x.stat.name, x["base_stat"]]),
+          };
+
+          localStorage.setItem("pokemon", JSON.stringify(fData));
+          setFetchedData(fData);
+        }
       }
     }
   }
@@ -78,39 +71,88 @@ export default function Main() {
 
   return (
     <>
-    <Header/>
-      <div className={`search-bar search-bar-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+      <Header />
+      <div
+        className={`search-bar search-bar-${
+          localStorage.getItem("pokemon")
+            ? JSON.parse(localStorage.getItem("pokemon")).type
+            : "fire"
+        }`}
+      >
         <input
           onKeyDown={handleEnterClick}
           onChange={handleChange}
-          className= {`search-input search-input-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}
+          className={`search-input search-input-${
+            localStorage.getItem("pokemon")
+              ? JSON.parse(localStorage.getItem("pokemon")).type
+              : "fire"
+          }`}
           placeholder="Pika?"
           type="text"
           value={query}
         />
-        <button onClick={findPokemon} className={`btn btn-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+        <button
+          onClick={findPokemon}
+          className={`btn btn-${
+            localStorage.getItem("pokemon")
+              ? JSON.parse(localStorage.getItem("pokemon")).type
+              : "fire"
+          }`}
+        >
           Search
         </button>
       </div>
 
       <div className="main-container">
-        <div className={`name-type name-type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
-          <h2 className={`title title-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+        <div
+          className={`name-type name-type-${
+            localStorage.getItem("pokemon")
+              ? JSON.parse(localStorage.getItem("pokemon")).type
+              : "fire"
+          }`}
+        >
+          <h2
+            className={`title title-${
+              localStorage.getItem("pokemon")
+                ? JSON.parse(localStorage.getItem("pokemon")).type
+                : "fire"
+            }`}
+          >
             {localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).name.toUpperCase()
               : ""}
           </h2>
-          <h2>    
+          <h2>
             {localStorage.getItem("pokemon")
               ? "#" + JSON.parse(localStorage.getItem("pokemon")).id
               : ""}
           </h2>
-          <img className={`type type-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`} src={localStorage.getItem("pokemon")
-              ? typesImg[JSON.parse(localStorage.getItem("pokemon")).type]:greatball} />
-        </div>
-        <div className={`main-img-container main-img-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
           <img
-            className={`main-img main-img-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}
+            className={`type type-${
+              localStorage.getItem("pokemon")
+                ? JSON.parse(localStorage.getItem("pokemon")).type
+                : "fire"
+            }`}
+            src={
+              localStorage.getItem("pokemon")
+                ? typesImg[JSON.parse(localStorage.getItem("pokemon")).type]
+                : greatball
+            }
+          />
+        </div>
+        <div
+          className={`main-img-container main-img-container-${
+            localStorage.getItem("pokemon")
+              ? JSON.parse(localStorage.getItem("pokemon")).type
+              : "fire"
+          }`}
+        >
+          <img
+            className={`main-img main-img-${
+              localStorage.getItem("pokemon")
+                ? JSON.parse(localStorage.getItem("pokemon")).type
+                : "fire"
+            }`}
             src={
               localStorage.getItem("pokemon")
                 ? JSON.parse(localStorage.getItem("pokemon"))["sprites"][0]
@@ -120,14 +162,32 @@ export default function Main() {
           />
         </div>
 
-        <div className={`btn-container btn-container-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
-          <Link to="/details" className={`details-btn details-btn-${localStorage.getItem("pokemon")?JSON.parse(localStorage.getItem("pokemon")).type :"fire"}`}>
+        <div
+          className={`btn-container btn-container-${
+            localStorage.getItem("pokemon")
+              ? JSON.parse(localStorage.getItem("pokemon")).type
+              : "fire"
+          }`}
+        >
+          <Link
+            to="/details"
+            className={`details-btn details-btn-${
+              localStorage.getItem("pokemon")
+                ? JSON.parse(localStorage.getItem("pokemon")).type
+                : "fire"
+            }`}
+          >
             Details
           </Link>
         </div>
       </div>
-      <Particle color={localStorage.getItem("pokemon")
-                ? colors[JSON.parse(localStorage.getItem("pokemon")).type]:""}/>
+      <Particle
+        color={
+          localStorage.getItem("pokemon")
+            ? colors[JSON.parse(localStorage.getItem("pokemon")).type]
+            : ""
+        }
+      />
     </>
   );
 }
