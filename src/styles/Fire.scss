@@ -70,3 +70,17 @@ $forthFire: #e2dd3b;
 }
 
 
+
+
+.singleSuggestion-fire:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-fire{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}
+

@@ -69,3 +69,14 @@ $forthFire: #ad62a5;
   background-color: black;
 }
 
+.singleSuggestion-fairy:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-fairy{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}

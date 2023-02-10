@@ -69,3 +69,14 @@ $forthFire: #186c82;
   background-color: black;
 }
 
+.singleSuggestion-ice:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-ice{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}

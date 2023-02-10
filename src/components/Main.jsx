@@ -7,35 +7,26 @@ import { colors, typesImg } from "../imports";
 import Particle from "./Particle";
 import Header from "./Header";
 import collect from "collect.js";
-
+import data from "../data.json"
 export default function Main() {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
-  const [data, setData] = useState();
+  
   const [fetchedData, setFetchedData] = useState();
 
-  useEffect(() => {
-    const getData = async () => {
-      const result = await fetch(
-        "https://pokeapi.co/api/v2/pokemon/?limit=905"
-      );
-      const resData = await result.json();
-      setData(resData.results);
-    };
-    getData();
-  }, []);
+ 
 
   function handleChange(event) {
     const { value } = event.target;
-
+    
     setQuery(value.toUpperCase().trim());
+    
   }
 
-  async function findPokemon() {
-    console.log(query);
-    if (query !== "") {
-      const rawData = data.find( x =>((x.name.toUpperCase().includes(query.toUpperCase()) && x.name.toUpperCase().startsWith(query.toUpperCase())) || x.name.toUpperCase() === query.toUpperCase().trim()
-      ))
+  async function findPokemon(name) {
+  
+    if (name !== "") {
+      const rawData = data.find( x =>(x.name.toUpperCase()===name.toUpperCase().trim()));
 
       if (rawData) {
         const result = await fetch(rawData.url);
@@ -65,7 +56,7 @@ export default function Main() {
 
   function handleEnterClick(event) {
     if (event.key === "Enter") {
-      findPokemon();
+      findPokemon(query);
     }
   }
 
@@ -79,7 +70,7 @@ export default function Main() {
             : "fire"
         }`}
       >
-        <input
+        <input onFocus={()=>setQuery("")}
           onKeyDown={handleEnterClick}
           onChange={handleChange}
           className={`search-input search-input-${
@@ -91,8 +82,9 @@ export default function Main() {
           type="text"
           value={query}
         />
+        
         <button
-          onClick={findPokemon}
+          onClick={(event)=>findPokemon(query)}
           className={`btn btn-${
             localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -102,7 +94,22 @@ export default function Main() {
           Search
         </button>
       </div>
+      <div className="suggestions">
 
+{query &&  
+data.filter(p=>p.name.toUpperCase().startsWith(query) 
+&& p.name.toUpperCase() !==query).map(p=><div className={`singleSuggestion singleSuggestion-${ localStorage.getItem("pokemon")
+? JSON.parse(localStorage.getItem("pokemon")).type
+: "fire"}`} onClick={(event)=>{
+  const selectedPokemon = event.target.textContent;
+  setQuery(selectedPokemon);
+  findPokemon(selectedPokemon)
+  
+  }} 
+key={p.name}>{p.name.toUpperCase()}</div>).slice(0,5)}
+
+
+</div>
       <div className="main-container">
         <div
           className={`name-type name-type-${

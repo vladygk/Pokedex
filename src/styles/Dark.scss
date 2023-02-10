@@ -69,3 +69,14 @@ $forthFire: #adadad;
   background-color: black;
 }
 
+.singleSuggestion-dark:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-dark{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}

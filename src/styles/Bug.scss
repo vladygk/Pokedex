@@ -69,3 +69,14 @@ $forthFire: #2faf62;
   background-color: black;
 }
 
+.singleSuggestion-bug:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-bug{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}

@@ -69,3 +69,14 @@ $forthFire: #5ea0a3;
   background-color: black;
 }
 
+.singleSuggestion-dragon:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-dragon{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}

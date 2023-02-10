@@ -69,3 +69,14 @@ $forthFire: #c054ff;
   background-color: black;
 }
 
+.singleSuggestion-psychic:hover{
+  background-color: $fire;
+  font-size: 21px;
+  border: 2px solid black;
+}
+
+.singleSuggestion-psychic{
+ 
+  background-color: $secFire;
+  border: 1px solid $fire;
+}
