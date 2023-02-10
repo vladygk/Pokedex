@@ -1,6 +1,6 @@
 import pokeball from "../../img/769px-Pokebola-pokeball-png-0.png";
 import greatball from "../../img/Great_Ball_Artwork.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useLayoutEffect, useState } from "react";
 import React from "react";
 import { colors, typesImg } from "../imports";
@@ -8,7 +8,44 @@ import Particle from "./Particle";
 import Header from "./Header";
 import collect from "collect.js";
 import data from "../data.json";
+import Evolution from "./Evolution";
+
+export async function findPokemon(name, setFunc, param) {
+  if (name !== "") {
+    const rawData = data.find(
+      (x) => x.name.toUpperCase() === name.toUpperCase().trim()
+    );
+
+    if (rawData) {
+      const result = await fetch(rawData.url);
+      const resData = await result.json();
+
+      if (resData !== undefined) {
+        const fData = {
+          name: resData.name,
+          type: resData.types[0].type.name,
+          id: resData.id,
+          moves: collect(
+            resData.moves.map((x) => x.move).map((x) => x.name)
+          ).take(10),
+          sprites: [
+            resData.sprites["front_default"],
+            resData.sprites["front_shiny"],
+          ],
+          stats: resData.stats.map((x) => [x.stat.name, x["base_stat"]]),
+        };
+
+        localStorage.setItem("pokemon", JSON.stringify(fData));
+        if (param) {
+          setFunc(fData);
+        }
+      }
+    }
+  }
+}
+
 export default function Main() {
+  const location = useLocation();
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
 
@@ -20,48 +57,16 @@ export default function Main() {
     setQuery(value.toUpperCase().trim());
   }
 
-  async function findPokemon(name) {
-    if (name !== "") {
-      const rawData = data.find(
-        (x) => x.name.toUpperCase() === name.toUpperCase().trim()
-      );
-
-      if (rawData) {
-        const result = await fetch(rawData.url);
-        const resData = await result.json();
-
-        if (resData !== undefined) {
-          const fData = {
-            name: resData.name,
-            type: resData.types[0].type.name,
-            id: resData.id,
-            moves: collect(resData.moves.map((x) => x.move).map((x) => x.name))
-              
-              .take(10),
-            sprites: [
-              resData.sprites["front_default"],
-              resData.sprites["front_shiny"],
-            ],
-            stats: resData.stats.map((x) => [x.stat.name, x["base_stat"]]),
-          };
-
-          localStorage.setItem("pokemon", JSON.stringify(fData));
-          setFetchedData(fData);
-        }
-      }
-    }
-  }
-
   function handleEnterClick(event) {
     if (event.key === "Enter") {
-      findPokemon(query);
+      findPokemon(query, setFetchedData,true);
     }
   }
 
   return (
     <>
       <Header />
-      
+
       <div
         className={`search-bar search-bar-${
           localStorage.getItem("pokemon")
@@ -84,7 +89,7 @@ export default function Main() {
         />
 
         <button
-          onClick={(event) => findPokemon(query)}
+          onClick={(event) => findPokemon(query, setFetchedData,true)}
           className={`btn btn-${
             localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -99,8 +104,8 @@ export default function Main() {
           data
             .filter(
               (p) =>
-                p.name.toUpperCase().startsWith(query) &&
-                p.name.toUpperCase() !== query
+                p.name.split("-")[0].toUpperCase().startsWith(query) &&
+                p.name.split("-")[0].toUpperCase() !== query
             )
             .map((p) => (
               <div
@@ -112,7 +117,7 @@ export default function Main() {
                 onClick={(event) => {
                   const selectedPokemon = event.target.textContent;
                   setQuery(selectedPokemon);
-                  findPokemon(selectedPokemon);
+                  findPokemon(selectedPokemon, setFetchedData,true);
                 }}
                 key={p.name}
               >
@@ -120,8 +125,7 @@ export default function Main() {
               </div>
             ))
             .slice(0, 5)}
-     
-     </div>
+      </div>
       <div className="main-container">
         <div
           className={`name-type name-type-${
@@ -181,34 +185,36 @@ export default function Main() {
           />
         </div>
 
-        {localStorage.getItem('pokemon')&&<div
-          className={`btn-container btn-container-${
-            localStorage.getItem("pokemon")
-              ? JSON.parse(localStorage.getItem("pokemon")).type
-              : "fire"
-          }`}
-        >
-          <Link
-            to="/details"
-            className={`details-btn details-btn-${
+        {localStorage.getItem("pokemon") && (
+          <div
+            className={`btn-container btn-container-${
               localStorage.getItem("pokemon")
                 ? JSON.parse(localStorage.getItem("pokemon")).type
                 : "fire"
             }`}
           >
-            Details
-          </Link>
-          <Link
-            to="/evo"
-            className={`details-btn details-btn-${
-              localStorage.getItem("pokemon")
-                ? JSON.parse(localStorage.getItem("pokemon")).type
-                : "fire"
-            }`}
-          >
-            Evolutions
-          </Link>
-        </div>}
+            <Link
+              to="/details"
+              className={`details-btn details-btn-${
+                localStorage.getItem("pokemon")
+                  ? JSON.parse(localStorage.getItem("pokemon")).type
+                  : "fire"
+              }`}
+            >
+              Details
+            </Link>
+            <Link
+              to="/evo"
+              className={`details-btn details-btn-${
+                localStorage.getItem("pokemon")
+                  ? JSON.parse(localStorage.getItem("pokemon")).type
+                  : "fire"
+              }`}
+            >
+              Evolutions
+            </Link>
+          </div>
+        )}
       </div>
       <Particle
         color={

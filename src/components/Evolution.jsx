@@ -2,8 +2,11 @@ import Header from "./Header";
 import { useEffect, useState } from "react";
 import { colors, typesImg } from "../imports";
 import Particle from "./Particle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import eeveeImg from "../../img/eevee.png"
+
+import { findPokemon } from "./Main";
+
 export default function Evolution() {
   const [localData, setLocalData] = useState(
     JSON.parse(localStorage.getItem("pokemon"))
@@ -13,6 +16,15 @@ export default function Evolution() {
   const [evoInfo2, setEvoInfo2] = useState(null);
   const [evoInfo3, setEvoInfo3] = useState(null);
   const [photos, setPhotos] = useState([]);
+const navigate = useNavigate();
+   
+async function goToPokemon(event){
+ 
+      const pokemonName  = event.target.parentElement.parentElement.children[0].textContent.toLowerCase();
+
+      await findPokemon(pokemonName,null,false );
+      navigate('/',{state:{name:pokemonName}});
+    }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,18 +56,22 @@ export default function Evolution() {
   }, [url]);
   useEffect(() => {
     const fetchData = async (urls) => {
+      if(urls){
         for(let i=0;i<urls.length;i++){
+          if(urls[i]){
             const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${urls[i]}`);
             const data = await res.json();
             setPhotos((prevPhotos) => {
               return [...prevPhotos, data.sprites["front_default"]];
+            
             });
+          }
         }
-     
+      }
     };
 
     if (evoInfo1 && evoInfo2 && evoInfo3) {
-      console.log(evoInfo1);
+      
       fetchData([evoInfo1,evoInfo2,evoInfo3]);
     }else if (evoInfo1 && evoInfo2) {
       fetchData([evoInfo1,evoInfo2]);
@@ -69,7 +85,7 @@ export default function Evolution() {
     <>
       <Header />
       
-      <div
+      <div 
         className={`search-bar search-bar-${
           localStorage.getItem("pokemon")
             ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -111,19 +127,19 @@ export default function Evolution() {
               : "fire"
           }`}
         >
-          {evoInfo1&&<div
+          {evoInfo1&&<div onClick={goToPokemon}
             className={`evo-container evo-container-${
               localStorage.getItem("pokemon")
                 ? JSON.parse(localStorage.getItem("pokemon")).type
                 : "fire"
             }`}
           >
-            <div className="evo-name"> {evoInfo1.toUpperCase()}</div>
-            <div className="evo-img">
+            <div className="evo-name" > {evoInfo1.toUpperCase()}</div>
+            <div className="evo-img" >
               <img src={photos[0]} alt="" />
             </div>
           </div>}
-          {evoInfo2&&<div
+          {evoInfo2&&<div onClick={goToPokemon}
             className={`evo-container evo-container-${
               localStorage.getItem("pokemon")
                 ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -136,7 +152,7 @@ export default function Evolution() {
             </div>
           </div>}
 
-          {evoInfo3&&<div
+          {evoInfo3&&<div onClick={goToPokemon}
             className={`evo-container evo-container-${
               localStorage.getItem("pokemon")
                 ? JSON.parse(localStorage.getItem("pokemon")).type
