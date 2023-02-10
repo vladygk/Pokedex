@@ -36,7 +36,7 @@ export default function Main() {
             type: resData.types[0].type.name,
             id: resData.id,
             moves: collect(resData.moves.map((x) => x.move).map((x) => x.name))
-              .skip(12)
+              
               .take(10),
             sprites: [
               resData.sprites["front_default"],
