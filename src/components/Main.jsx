@@ -7,26 +7,24 @@ import { colors, typesImg } from "../imports";
 import Particle from "./Particle";
 import Header from "./Header";
 import collect from "collect.js";
-import data from "../data.json"
+import data from "../data.json";
 export default function Main() {
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
-  
-  const [fetchedData, setFetchedData] = useState();
 
- 
+  const [fetchedData, setFetchedData] = useState();
 
   function handleChange(event) {
     const { value } = event.target;
-    
+
     setQuery(value.toUpperCase().trim());
-    
   }
 
   async function findPokemon(name) {
-  
     if (name !== "") {
-      const rawData = data.find( x =>(x.name.toUpperCase()===name.toUpperCase().trim()));
+      const rawData = data.find(
+        (x) => x.name.toUpperCase() === name.toUpperCase().trim()
+      );
 
       if (rawData) {
         const result = await fetch(rawData.url);
@@ -63,6 +61,7 @@ export default function Main() {
   return (
     <>
       <Header />
+      
       <div
         className={`search-bar search-bar-${
           localStorage.getItem("pokemon")
@@ -70,7 +69,8 @@ export default function Main() {
             : "fire"
         }`}
       >
-        <input onFocus={()=>setQuery("")}
+        <input
+          onFocus={() => setQuery("")}
           onKeyDown={handleEnterClick}
           onChange={handleChange}
           className={`search-input search-input-${
@@ -82,9 +82,9 @@ export default function Main() {
           type="text"
           value={query}
         />
-        
+
         <button
-          onClick={(event)=>findPokemon(query)}
+          onClick={(event) => findPokemon(query)}
           className={`btn btn-${
             localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -95,21 +95,33 @@ export default function Main() {
         </button>
       </div>
       <div className="suggestions">
-
-{query &&  
-data.filter(p=>p.name.toUpperCase().startsWith(query) 
-&& p.name.toUpperCase() !==query).map(p=><div className={`singleSuggestion singleSuggestion-${ localStorage.getItem("pokemon")
-? JSON.parse(localStorage.getItem("pokemon")).type
-: "fire"}`} onClick={(event)=>{
-  const selectedPokemon = event.target.textContent;
-  setQuery(selectedPokemon);
-  findPokemon(selectedPokemon)
-  
-  }} 
-key={p.name}>{p.name.toUpperCase()}</div>).slice(0,5)}
-
-
-</div>
+        {query &&
+          data
+            .filter(
+              (p) =>
+                p.name.toUpperCase().startsWith(query) &&
+                p.name.toUpperCase() !== query
+            )
+            .map((p) => (
+              <div
+                className={`singleSuggestion singleSuggestion-${
+                  localStorage.getItem("pokemon")
+                    ? JSON.parse(localStorage.getItem("pokemon")).type
+                    : "fire"
+                }`}
+                onClick={(event) => {
+                  const selectedPokemon = event.target.textContent;
+                  setQuery(selectedPokemon);
+                  findPokemon(selectedPokemon);
+                }}
+                key={p.name}
+              >
+                {p.name.toUpperCase()}
+              </div>
+            ))
+            .slice(0, 5)}
+     
+     </div>
       <div className="main-container">
         <div
           className={`name-type name-type-${
@@ -169,7 +181,7 @@ key={p.name}>{p.name.toUpperCase()}</div>).slice(0,5)}
           />
         </div>
 
-        <div
+        {localStorage.getItem('pokemon')&&<div
           className={`btn-container btn-container-${
             localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -186,7 +198,17 @@ key={p.name}>{p.name.toUpperCase()}</div>).slice(0,5)}
           >
             Details
           </Link>
-        </div>
+          <Link
+            to="/evo"
+            className={`details-btn details-btn-${
+              localStorage.getItem("pokemon")
+                ? JSON.parse(localStorage.getItem("pokemon")).type
+                : "fire"
+            }`}
+          >
+            Evolutions
+          </Link>
+        </div>}
       </div>
       <Particle
         color={
