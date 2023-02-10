@@ -48,7 +48,7 @@ export default function Main() {
   const location = useLocation();
   const [query, setQuery] = useState("");
   const [pokemon, setPokemon] = useState();
-
+  const [showSuggest, setShowSuggest] = useState(true);
   const [fetchedData, setFetchedData] = useState();
 
   function handleChange(event) {
@@ -59,7 +59,7 @@ export default function Main() {
 
   function handleEnterClick(event) {
     if (event.key === "Enter") {
-      findPokemon(query, setFetchedData,true);
+      findPokemon(query, setFetchedData, true);
     }
   }
 
@@ -75,7 +75,11 @@ export default function Main() {
         }`}
       >
         <input
-          onFocus={() => setQuery("")}
+          onFocus={() => {
+            setQuery("");
+            setShowSuggest(true);
+          }}
+          onBlur={()=>{setShowSuggest(false)}}
           onKeyDown={handleEnterClick}
           onChange={handleChange}
           className={`search-input search-input-${
@@ -89,7 +93,7 @@ export default function Main() {
         />
 
         <button
-          onClick={(event) => findPokemon(query, setFetchedData,true)}
+          onClick={(event) => findPokemon(query, setFetchedData, true)}
           className={`btn btn-${
             localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -100,7 +104,8 @@ export default function Main() {
         </button>
       </div>
       <div className="suggestions">
-        {query &&
+        {showSuggest &&
+          query &&
           data
             .filter(
               (p) =>
@@ -117,7 +122,7 @@ export default function Main() {
                 onClick={(event) => {
                   const selectedPokemon = event.target.textContent;
                   setQuery(selectedPokemon);
-                  findPokemon(selectedPokemon, setFetchedData,true);
+                  findPokemon(selectedPokemon, setFetchedData, true);
                 }}
                 key={p.name}
               >
