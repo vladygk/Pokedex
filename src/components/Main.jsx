@@ -9,7 +9,6 @@ import Header from "./Header";
 import collect from "collect.js";
 import data from "../data.json";
 
-
 export async function findPokemon(name, setFunc, param) {
   if (name !== "") {
     const rawData = data.find(
@@ -79,7 +78,6 @@ export default function Main() {
             setQuery("");
             setShowSuggest(true);
           }}
-          
           onKeyDown={handleEnterClick}
           onChange={handleChange}
           className={`search-input search-input-${
@@ -93,7 +91,7 @@ export default function Main() {
         />
 
         <button
-          onClick={(event) => findPokemon(query, setFetchedData, true)}
+          onClick={() => findPokemon(query, setFetchedData, true)}
           className={`btn btn-${
             localStorage.getItem("pokemon")
               ? JSON.parse(localStorage.getItem("pokemon")).type
@@ -104,8 +102,7 @@ export default function Main() {
         </button>
       </div>
       <div className="suggestions">
-        {
-          query &&
+        {query &&
           data
             .filter(
               (p) =>
@@ -121,7 +118,7 @@ export default function Main() {
                 }`}
                 onClick={(event) => {
                   const selectedPokemon = event.target.textContent;
-                  console.log('here');
+                  console.log("here");
                   setQuery(selectedPokemon);
                   findPokemon(selectedPokemon, setFetchedData, true);
                 }}

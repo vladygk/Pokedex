@@ -86,3 +86,9 @@ $forthFire: #adadad;
   border: 10px solid $secFire;
   
 }
+
+.evo-container-dark:hover{
+  background-color: $secFire;
+  color: black;
+  border-color: white;
+}
