@@ -8,7 +8,7 @@ import Particle from "./Particle";
 import Header from "./Header";
 import collect from "collect.js";
 import data from "../data.json";
-import Evolution from "./Evolution";
+
 
 export async function findPokemon(name, setFunc, param) {
   if (name !== "") {
@@ -79,7 +79,7 @@ export default function Main() {
             setQuery("");
             setShowSuggest(true);
           }}
-          onBlur={()=>{setShowSuggest(false)}}
+          
           onKeyDown={handleEnterClick}
           onChange={handleChange}
           className={`search-input search-input-${
@@ -104,7 +104,7 @@ export default function Main() {
         </button>
       </div>
       <div className="suggestions">
-        {showSuggest &&
+        {
           query &&
           data
             .filter(
@@ -121,6 +121,7 @@ export default function Main() {
                 }`}
                 onClick={(event) => {
                   const selectedPokemon = event.target.textContent;
+                  console.log('here');
                   setQuery(selectedPokemon);
                   findPokemon(selectedPokemon, setFetchedData, true);
                 }}
